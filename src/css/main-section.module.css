@@ -1,0 +1,48 @@
+.container {
+  position: relative;
+  z-index: 2;
+  width: 70vw;
+  margin: 0 auto;
+  padding: clamp(24px, 6vh, 72px) clamp(20px, 6vw, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  padding: 7px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #c7d2fe;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(3rem, 4vw, 6rem);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.accent {
+  background: linear-gradient(120deg, #6ee7ff 0%, #a78bfa 55%, #f0abfc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.description {
+  margin: 20px 0 0;
+  max-width: 560px;
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  line-height: 1.6;
+  color: #aab3d6;
+}
