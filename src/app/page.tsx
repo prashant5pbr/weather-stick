@@ -1,65 +1,107 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
 
+import Link from 'next/link';
+
+import pageStyles from '@/css/page.module.css';
+import brandStyles from '@/css/brand.module.css';
+import mainStyles from '@/css/main-section.module.css';
+import formStyles from '@/css/form.module.css';
+
+//Component to create homepage
 export default function Home() {
+  //Function to convert the given date to string
+  const iso = (date: Date) => {
+    const digits = (num: number) => String(num).padStart(2, '0');
+    return `${date.getFullYear()}-${digits(date.getMonth() + 1)}-${digits(date.getDate())}`;
+  };
+
+  //Minimum date
+  let min = new Date('1940/01/01 GMT');
+  let minDate = iso(min);
+
+  //Maximum date
+  let max = new Date();
+  max.setDate(max.getDate() + 16);
+  let maxDate = iso(max);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className={pageStyles.page}>
+      {/* Create the background image */}
+      <div className={pageStyles.aurora} aria-hidden="true">
+        <span className={`${pageStyles.blob} ${pageStyles.blobOne}`} />
+        <span className={`${pageStyles.blob} ${pageStyles.blobTwo}`} />
+        <span className={`${pageStyles.blob} ${pageStyles.blobThree}`} />
+      </div>
+
+      {/* App logo and title */}
+      <header className={brandStyles.container}>
+        <Link className={brandStyles.brand} href="#">
+          <span className={brandStyles.brandMark} aria-hidden="true">
+            <img className={brandStyles.brandLogo} src="/app-logo.svg" />
+          </span>
+          <div className={brandStyles.brandBox}>
+            <span className={brandStyles.brandName}>Weather Stick</span>
+            <span className={brandStyles.brandMotto}>Your sky at a glance</span>
+          </div>
+        </Link>
+      </header>
+
+      {/* Main section of the app */}
+      <main className={mainStyles.container}>
+        <p className={mainStyles.eyebrow}>Live forecasts, anywhere</p>
+        <h1 className={mainStyles.title}>
+          Check the weather of <span className={mainStyles.accent}>any place</span>
+        </h1>
+
+        {/* Description for the app */}
+        <p className={mainStyles.description}>
+          Type a city or pick a spot on the map, select any date from 01/01/1940 to 16 days in the future, and get a
+          clear, beautiful historical weather data or reliable forecast in seconds.
+        </p>
+
+        {/* Form to accept input (place and date) */}
+        <form className={formStyles.search}>
+          <div className={`${formStyles.field} ${formStyles.fieldPlace}`}>
+            <label className={formStyles.label} htmlFor="place">
+              Place
+            </label>
+
+            {/* Input to accept place */}
+            <div className={formStyles.inputWrap}>
+              <img className={formStyles.placeIcon} src="/map-symbol.svg" />
+              <input
+                id="place"
+                type="text"
+                className={formStyles.input}
+                placeholder="e.g. Tokyo, London"
+                autoComplete="off"
+              />
+            </div>
+
+            {/* Choice to accept place using map */}
+            <Link className={formStyles.mapLink} href="#" onClick={(e) => e.preventDefault()}>
+              <img className={formStyles.mapLogo} src="/map-symbol2.svg" />
+              Choose a place on map
+            </Link>
+          </div>
+
+          <div className={`${formStyles.field} ${formStyles.fieldDate}`}>
+            <label className={formStyles.label} htmlFor="date">
+              Date <span className={formStyles.optional}>(optional)</span>
+            </label>
+
+            {/* Input to accept date */}
+            <div className={formStyles.inputWrap}>
+              <img className={formStyles.dateIcon} src="/calendar-symbol.svg" />
+              <input id="date" type="date" className={formStyles.input} min={minDate} max={maxDate} />
+            </div>
+          </div>
+
+          <button type="submit" className={formStyles.submit}>
+            Enter
+            <img src="/right-arrow.svg" />
+          </button>
+        </form>
       </main>
     </div>
   );
