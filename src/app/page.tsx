@@ -24,6 +24,14 @@ export default function Home() {
   max.setDate(max.getDate() + 16);
   let maxDate = iso(max);
 
+  //Today's date
+  let today = iso(new Date());
+
+  //  Event handler to handle form submission
+  const handleSubmit = function (e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+  };
+
   return (
     <div className={pageStyles.page}>
       {/* Create the background image */}
@@ -60,7 +68,7 @@ export default function Home() {
         </p>
 
         {/* Form to accept input (place and date) */}
-        <form className={formStyles.search}>
+        <form className={formStyles.search} onSubmit={(e) => handleSubmit(e)}>
           <div className={`${formStyles.field} ${formStyles.fieldPlace}`}>
             <label className={formStyles.label} htmlFor="place">
               Place
@@ -93,7 +101,14 @@ export default function Home() {
             {/* Input to accept date */}
             <div className={formStyles.inputWrap}>
               <img className={formStyles.dateIcon} src="/calendar-symbol.svg" />
-              <input id="date" type="date" className={formStyles.input} min={minDate} max={maxDate} />
+              <input
+                id="date"
+                type="date"
+                className={formStyles.input}
+                defaultValue={today}
+                min={minDate}
+                max={maxDate}
+              />
             </div>
           </div>
 
