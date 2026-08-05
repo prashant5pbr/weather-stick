@@ -1,7 +1,7 @@
 .container {
   position: relative;
   z-index: 2;
-  padding: 26px clamp(20px, 6vw, 64px);
+  padding: 15px clamp(5px, 5vw, 20px);
 }
 
 .brand {
