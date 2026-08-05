@@ -78,6 +78,10 @@
   cursor: pointer;
 }
 
+.input[type='date'] {
+  padding: 12px 14px 10px 40px;
+}
+
 /* Map link sits just below the place input */
 .mapLink {
   display: inline-flex;
@@ -129,4 +133,30 @@
 
 .submit:active {
   transform: translateY(0);
+}
+
+.mobileSearch {
+  display: none;
+  width: 62px;
+  height: 61px;
+  padding: 2px 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+  box-shadow: 0 6px 20px rgba(80, 110, 255, 0.25);
+}
+
+@media (max-width: 650px) {
+  .search {
+    display: none;
+  }
+
+  .mobileSearch {
+    display: block;
+  }
 }
