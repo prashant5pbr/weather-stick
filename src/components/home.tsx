@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import pageStyles from '@/css/page.module.css';
 import brandStyles from '@/css/brand.module.css';
@@ -9,6 +10,9 @@ import formStyles from '@/css/form.module.css';
 
 //Component to create homepage
 const Home = function () {
+  // Create an object of useRouter() to handle the URLs and views
+  const router = useRouter();
+
   //Function to convert the given date to string
   const iso = (date: Date) => {
     const digits = (num: number) => String(num).padStart(2, '0');
@@ -30,6 +34,9 @@ const Home = function () {
   //  Event handler to handle form submission
   const handleSubmit = function (e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    //Display the weather page
+    router.push('/weather');
   };
 
   return (
@@ -63,8 +70,8 @@ const Home = function () {
 
         {/* Description for the app */}
         <p className={mainStyles.description}>
-          Type a city or pick a spot on the map, select any date from 01/01/1940 to 16 days in the future, and get a
-          clear, beautiful historical weather data or reliable forecast in seconds.
+          Type a city or pick a spot on the map, select any date from 01/01/1940 to 16 days in the future and get a
+          clear and beautiful historical weather data or reliable forecast in seconds.
         </p>
 
         {/* Form to accept input (place and date) */}
