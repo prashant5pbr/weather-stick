@@ -23,7 +23,7 @@ const Weather = function () {
         {/* Logo of the app */}
         <Link className={brandStyles.brand} href="/">
           <span className={brandStyles.brandMark} aria-hidden="true">
-            <img className={brandStyles.brandLogo} src="/app-logo.svg" />
+            <img className={brandStyles.brandLogo} src="/app-logo.svg" draggable="false" />
           </span>
         </Link>
 
@@ -32,7 +32,7 @@ const Weather = function () {
           {/* Input to accept place */}
           <div className={`${formStyles.field} ${formStyles.fieldPlace}`}>
             <div className={weatherStyles.inputWrap}>
-              <img className={weatherStyles.placeIcon} src="/map-symbol.svg" />
+              <img className={weatherStyles.placeIcon} src="/map-symbol.svg" draggable="false" />
               <input
                 id="place"
                 name="place"
@@ -45,7 +45,7 @@ const Weather = function () {
 
             {/* Link to select place using map */}
             <Link className={weatherStyles.mapLink} href="#">
-              <img className={formStyles.mapLogo} src="/map-symbol2.svg" />
+              <img className={formStyles.mapLogo} src="/map-symbol2.svg" draggable="false" />
               Choose a place on map
             </Link>
           </div>
@@ -53,7 +53,7 @@ const Weather = function () {
           {/* Input to accept date */}
           <div className={`${formStyles.field} ${formStyles.fieldDate}`}>
             <div className={formStyles.inputWrap}>
-              <img className={weatherStyles.dateIcon} src="/calendar-symbol.svg" />
+              <img className={weatherStyles.dateIcon} src="/calendar-symbol.svg" draggable="false" />
               <input id="date" name="date" type="date" className={weatherStyles.input} />
             </div>
           </div>

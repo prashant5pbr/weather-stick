@@ -52,7 +52,7 @@ const Home = function () {
       <header className={brandStyles.container}>
         <Link className={brandStyles.brand} href="#">
           <span className={brandStyles.brandMark} aria-hidden="true">
-            <img className={brandStyles.brandLogo} src="/app-logo.svg" />
+            <img className={brandStyles.brandLogo} src="/app-logo.svg" draggable="false" />
           </span>
           <div className={brandStyles.brandBox}>
             <span className={brandStyles.brandName}>Weather Stick</span>
@@ -83,7 +83,7 @@ const Home = function () {
 
             {/* Input to accept place */}
             <div className={formStyles.inputWrap}>
-              <img className={formStyles.placeIcon} src="/map-symbol.svg" />
+              <img className={formStyles.placeIcon} src="/map-symbol.svg" draggable="false" />
               <input
                 id="place"
                 type="text"
@@ -95,7 +95,7 @@ const Home = function () {
 
             {/* Choice to accept place using map */}
             <Link className={formStyles.mapLink} href="#" onClick={(e) => e.preventDefault()}>
-              <img className={formStyles.mapLogo} src="/map-symbol2.svg" />
+              <img className={formStyles.mapLogo} src="/map-symbol2.svg" draggable="false" />
               Choose a place on map
             </Link>
           </div>
@@ -107,7 +107,7 @@ const Home = function () {
 
             {/* Input to accept date */}
             <div className={formStyles.inputWrap}>
-              <img className={formStyles.dateIcon} src="/calendar-symbol.svg" />
+              <img className={formStyles.dateIcon} src="/calendar-symbol.svg" draggable="false" />
               <input
                 id="date"
                 type="date"
@@ -121,7 +121,7 @@ const Home = function () {
 
           <button type="submit" className={formStyles.submit}>
             Enter
-            <img src="/right-arrow.svg" />
+            <img src="/right-arrow.svg" draggable="false" />
           </button>
         </form>
       </main>
