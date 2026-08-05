@@ -1,0 +1,132 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 15px clamp(5px, 5vw, 20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 13, 36, 0.55);
+  backdrop-filter: blur(18px);
+}
+
+.search {
+  display: flex;
+  flex: 1 1 0;
+  max-width: 800px;
+  min-width: 500px;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+.inputWrap {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.placeIcon {
+  position: absolute;
+  left: 8px;
+  bottom: 10px;
+  height: 28px;
+  color: #8f9bc7;
+  aspect-ratio: 1/1;
+}
+
+.dateIcon {
+  position: absolute;
+  left: 10px;
+  bottom: 12px;
+  height: 25px;
+  color: #8f9bc7;
+  pointer-events: none;
+  aspect-ratio: 1/1;
+}
+
+.input {
+  flex: 1 1 100px;
+  width: 50%;
+  padding: 12px 14px 12px 40px;
+  font-size: 0.98rem;
+  color: #f4f6ff;
+  background: rgba(9, 12, 32, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 13px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.input::placeholder {
+  color: #7b85ab;
+}
+
+.input:focus {
+  border-color: #7c9bff;
+  background: rgba(9, 12, 32, 0.85);
+  box-shadow: 0 0 0 4px rgba(124, 155, 255, 0.18);
+}
+
+.input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+  cursor: pointer;
+}
+
+/* Map link sits just below the place input */
+.mapLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 4px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #b7c1ea;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mapLink:hover {
+  color: #fff;
+}
+
+.mapLink svg {
+  color: #7c9bff;
+}
+
+.submit {
+  align-self: flex-start;
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #0a0d24;
+  background: linear-gradient(120deg, #6ee7ff 0%, #a78bfa 100%);
+  border: none;
+  border-radius: 13px;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+  box-shadow: 0 12px 30px rgba(124, 155, 255, 0.4);
+}
+
+.submit:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 16px 40px rgba(124, 155, 255, 0.55);
+}
+
+.submit:active {
+  transform: translateY(0);
+}
