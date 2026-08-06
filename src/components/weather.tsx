@@ -27,11 +27,6 @@ const Weather = function () {
           </span>
         </Link>
 
-        {/* Search button to show in case of smaller viewports */}
-        <button className={weatherStyles.mobileSearch}>
-          <img src="/search-icon.svg" draggable="false" />
-        </button>
-
         {/* Form to accept input (place and date) */}
         <TopbarForm />
       </header>
