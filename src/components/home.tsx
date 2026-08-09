@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { formatDate } from '@/util/date-format';
 
 import pageStyles from '@/css/page.module.css';
 import brandStyles from '@/css/brand.module.css';
@@ -13,20 +14,14 @@ const Home = function () {
   // Create an object of useRouter() to handle the URLs and views
   const router = useRouter();
 
-  // Function to convert the given date to string
-  const iso = (date: Date) => {
-    const digits = (num: number) => String(num).padStart(2, '0');
-    return `${date.getFullYear()}-${digits(date.getMonth() + 1)}-${digits(date.getDate())}`;
-  };
-
   // Minimum date
   let min = new Date('1940/01/01 GMT');
-  let minDate = iso(min);
+  let minDate = formatDate(min);
 
   // Maximum date
   let max = new Date();
   max.setDate(max.getDate() + 16);
-  let maxDate = iso(max);
+  let maxDate = formatDate(max);
 
   // Event handler to handle form submission
   const handleSubmit = function (e: React.SubmitEvent<HTMLFormElement>) {
