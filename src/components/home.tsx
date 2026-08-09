@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useFormStore } from '@/stores/form-data-store';
 import { formatDate } from '@/util/date-format';
 
 import pageStyles from '@/css/page.module.css';
@@ -13,6 +14,11 @@ import formStyles from '@/css/form.module.css';
 const Home = function () {
   // Create an object of useRouter() to handle the URLs and views
   const router = useRouter();
+
+  // Fetching data from the form store
+  const place = useFormStore((state) => state.place);
+  const date = useFormStore((state) => state.date);
+  const setInput = useFormStore((state) => state.setInput);
 
   // Minimum date
   let min = new Date('1940/01/01 GMT');
@@ -80,6 +86,8 @@ const Home = function () {
                 id="place"
                 type="text"
                 className={formStyles.input}
+                value={place}
+                onChange={(e) => setInput('place', e.target.value)}
                 placeholder="e.g. Tokyo, London"
                 autoComplete="off"
               />
@@ -100,7 +108,15 @@ const Home = function () {
             {/* Input to accept date */}
             <div className={formStyles.inputWrap}>
               <img className={formStyles.dateIcon} src="/calendar-symbol.svg" draggable="false" />
-              <input id="date" type="date" className={formStyles.input} min={minDate} max={maxDate} />
+              <input
+                id="date"
+                type="date"
+                className={formStyles.input}
+                value={date}
+                onChange={(e) => setInput('date', e.target.value)}
+                min={minDate}
+                max={maxDate}
+              />
             </div>
           </div>
 
