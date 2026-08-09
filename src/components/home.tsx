@@ -8,34 +8,31 @@ import brandStyles from '@/css/brand.module.css';
 import mainStyles from '@/css/main-section.module.css';
 import formStyles from '@/css/form.module.css';
 
-//Component to create homepage
+// Component to create homepage
 const Home = function () {
   // Create an object of useRouter() to handle the URLs and views
   const router = useRouter();
 
-  //Function to convert the given date to string
+  // Function to convert the given date to string
   const iso = (date: Date) => {
     const digits = (num: number) => String(num).padStart(2, '0');
     return `${date.getFullYear()}-${digits(date.getMonth() + 1)}-${digits(date.getDate())}`;
   };
 
-  //Minimum date
+  // Minimum date
   let min = new Date('1940/01/01 GMT');
   let minDate = iso(min);
 
-  //Maximum date
+  // Maximum date
   let max = new Date();
   max.setDate(max.getDate() + 16);
   let maxDate = iso(max);
 
-  //Today's date
-  let today = iso(new Date());
-
-  //  Event handler to handle form submission
+  // Event handler to handle form submission
   const handleSubmit = function (e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    //Display the weather page
+    // Display the weather page
     router.push('/weather');
   };
 
@@ -108,14 +105,7 @@ const Home = function () {
             {/* Input to accept date */}
             <div className={formStyles.inputWrap}>
               <img className={formStyles.dateIcon} src="/calendar-symbol.svg" draggable="false" />
-              <input
-                id="date"
-                type="date"
-                className={formStyles.input}
-                defaultValue={today}
-                min={minDate}
-                max={maxDate}
-              />
+              <input id="date" type="date" className={formStyles.input} min={minDate} max={maxDate} />
             </div>
           </div>
 
