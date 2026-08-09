@@ -1,5 +1,8 @@
+'use client';
+
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+import { formatDate } from '@/util/date-format';
 
 // Shape for the data of the form and the actions
 interface FormDetails {
@@ -18,7 +21,7 @@ const useFormStore = create<FormDetails>()(
   persist(
     (set) => ({
       place: '',
-      date: '',
+      date: formatDate(new Date()),
 
       setInput: (field, value) => set((state) => ({ ...state, [field]: value })),
     }),
