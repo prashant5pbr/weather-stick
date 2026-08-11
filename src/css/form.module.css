@@ -99,6 +99,16 @@
   cursor: pointer;
 }
 
+.input[aria-invalid='true'] {
+  border: 2px solid #d93025;
+}
+
+.errorMessage {
+  font-weight: bold;
+  font-style: italic;
+  color: red;
+}
+
 .submit {
   margin-top: 25px;
   flex: 1 1 130px;
