@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFormStore } from '@/stores/form-data-store';
 import { formatDate } from '@/util/date-format';
@@ -12,6 +13,9 @@ import formStyles from '@/css/form.module.css';
 
 // Component to create homepage
 const Home = function () {
+  // State to check if the input is empty
+  const [isEmpty, setIsEmpty] = useState(false);
+
   // Create an object of useRouter() to handle the URLs and views
   const router = useRouter();
 
@@ -32,6 +36,14 @@ const Home = function () {
   // Event handler to handle form submission
   const handleSubmit = function (e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    // Check if the place input is empty
+    if (place.trim() === '') {
+      setIsEmpty(true);
+      return;
+    }
+
+    setIsEmpty(false);
 
     // Display the weather page
     router.push('/weather');
@@ -76,7 +88,7 @@ const Home = function () {
         <form className={formStyles.search} onSubmit={(e) => handleSubmit(e)}>
           <div className={`${formStyles.field} ${formStyles.fieldPlace}`}>
             <label className={formStyles.label} htmlFor="place">
-              Place
+              Place {isEmpty ? <span className={formStyles.errorMessage}>can't be empty</span> : ''}
             </label>
 
             {/* Input to accept place */}
@@ -87,8 +99,12 @@ const Home = function () {
                 type="text"
                 className={formStyles.input}
                 value={place}
-                onChange={(e) => setInput('place', e.target.value)}
+                onChange={(e) => {
+                  e.target.value === '' ? setIsEmpty(true) : setIsEmpty(false);
+                  setInput('place', e.target.value);
+                }}
                 placeholder="e.g. Tokyo, London"
+                aria-invalid={isEmpty}
                 autoComplete="off"
               />
             </div>
