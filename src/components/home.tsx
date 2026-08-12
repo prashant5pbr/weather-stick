@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFormStore } from '@/stores/form-data-store';
 import { formatDate } from '@/util/date-format';
+import { titleCase } from '@/util/string-format';
 
 import pageStyles from '@/css/page.module.css';
 import brandStyles from '@/css/brand.module.css';
@@ -44,14 +45,21 @@ const Home = function () {
     }
 
     setIsEmpty(false);
+    setInput('place', place.trim());
 
-    // Display the weather page
-    router.push('/weather');
+    // Encode the values to be safely used in URL as parameters
+    let placeParam = titleCase(place.trim());
+    placeParam = encodeURIComponent(placeParam);
+
+    let dateParam = encodeURIComponent(date);
+
+    // Display the weather page with the parameters
+    router.push(`/weather?place=${placeParam}&date=${dateParam}`);
   };
 
   return (
     <div className={pageStyles.page}>
-      {/* Create the background image */}
+      {/* Create the background style */}
       <div className={pageStyles.aurora} aria-hidden="true">
         <span className={`${pageStyles.blob} ${pageStyles.blobOne}`} />
         <span className={`${pageStyles.blob} ${pageStyles.blobTwo}`} />
