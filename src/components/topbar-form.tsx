@@ -1,12 +1,16 @@
 'use client';
 
 import Link from 'next/link';
+import { useFormData } from '@/hooks/use-form-data';
 
 import weatherStyles from '@/css/weather-topbar.module.css';
 import formStyles from '@/css/form.module.css';
 
 // Component to create form in the topbar of the weather page
 const TopbarForm = function () {
+  // Get the state for the inputs of the form and the handler to update state
+  const { inputDraft, handleChange } = useFormData();
+
   return (
     <form className={weatherStyles.search}>
       {/* Input to accept place */}
@@ -18,6 +22,8 @@ const TopbarForm = function () {
             name="place"
             type="text"
             className={weatherStyles.input}
+            onChange={(e) => handleChange('place', e)}
+            value={inputDraft.place}
             placeholder="Search a place…"
             autoComplete="off"
           />
@@ -34,7 +40,14 @@ const TopbarForm = function () {
       <div className={`${formStyles.field} ${formStyles.fieldDate}`}>
         <div className={formStyles.inputWrap}>
           <img className={weatherStyles.dateIcon} src="/calendar-symbol.svg" draggable="false" />
-          <input id="date" name="date" type="date" className={weatherStyles.input} />
+          <input
+            id="date"
+            name="date"
+            type="date"
+            className={weatherStyles.input}
+            onChange={(e) => handleChange('date', e)}
+            value={inputDraft.date}
+          />
         </div>
       </div>
 
