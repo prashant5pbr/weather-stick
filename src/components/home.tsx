@@ -45,7 +45,7 @@ const Home = function () {
     }
 
     setIsEmpty(false);
-    setInput('place', place.trim());
+    setInput('place', titleCase(place).trim());
 
     // Encode the values to be safely used in URL as parameters
     let placeParam = titleCase(place.trim());
