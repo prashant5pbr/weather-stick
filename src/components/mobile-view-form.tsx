@@ -8,8 +8,8 @@ import mobileStyles from '@/css/mobile-form.module.css';
 
 // Component to create form in the topbar of the weather page for the smaller viewports
 const MobileViewForm = function () {
-  // Get the state for the inputs of the form and the handler to update state
-  const { inputDraft, handleChange } = useFormData();
+  // Get the state for the inputs of the form and the handlers to update state
+  const { inputDraft, handleChange, handleBlur } = useFormData();
 
   return (
     <form className={mobileStyles.mobileForm}>
@@ -23,6 +23,7 @@ const MobileViewForm = function () {
             type="text"
             className={mobileStyles.input}
             onChange={(e) => handleChange('place', e)}
+            onBlur={(e) => handleBlur('place', e)}
             value={inputDraft.place}
             placeholder="Search a place…"
             autoComplete="off"

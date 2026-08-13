@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useFormStore } from '@/stores/form-data-store';
 import { formatDate } from '@/util/date-format';
+import { titleCase } from '@/util/string-format';
 
 // Custom hook to fetch data from the url parameters and handle state updates
 const useFormData = function () {
@@ -33,9 +34,15 @@ const useFormData = function () {
     setInput(field, e.target.value);
   };
 
+  // Handle the event when input loses focus
+  const handleBlur = function (field: 'place' | 'date', e: React.ChangeEvent<HTMLInputElement>) {
+    setInput(field, titleCase(e.target.value).trim());
+  };
+
   return {
     inputDraft,
     handleChange,
+    handleBlur,
   };
 };
 

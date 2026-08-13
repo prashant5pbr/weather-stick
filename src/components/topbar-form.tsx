@@ -8,8 +8,8 @@ import formStyles from '@/css/form.module.css';
 
 // Component to create form in the topbar of the weather page
 const TopbarForm = function () {
-  // Get the state for the inputs of the form and the handler to update state
-  const { inputDraft, handleChange } = useFormData();
+  // Get the state for the inputs of the form and the handlers to update state
+  const { inputDraft, handleChange, handleBlur } = useFormData();
 
   return (
     <form className={weatherStyles.search}>
@@ -23,6 +23,7 @@ const TopbarForm = function () {
             type="text"
             className={weatherStyles.input}
             onChange={(e) => handleChange('place', e)}
+            onBlur={(e) => handleBlur('place', e)}
             value={inputDraft.place}
             placeholder="Search a place…"
             autoComplete="off"
