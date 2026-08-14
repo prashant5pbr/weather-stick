@@ -36,7 +36,8 @@ const TopbarForm = function () {
             aria-invalid={isEmpty}
             autoComplete="off"
           />
-          <span className={weatherStyles.errorSymbol}>{isEmpty ? '!' : ''}</span>
+
+          <span className={weatherStyles.errorMessage}>{isEmpty ? 'Empty\nInput' : ''}</span>
         </div>
 
         {/* Link to select place using map */}
