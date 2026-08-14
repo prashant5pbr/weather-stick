@@ -108,6 +108,10 @@
   padding: 12px 14px 10px 40px;
 }
 
+.input[aria-invalid='true'] {
+  border: 2px solid #d93025;
+}
+
 /* Map link sits just below the place input */
 .mapLink {
   display: inline-flex;
@@ -128,6 +132,16 @@
 
 .mapLink svg {
   color: #7c9bff;
+}
+
+.errorSymbol {
+  position: absolute;
+  right: 20px;
+  bottom: -35px;
+  font-size: 30px;
+  font-weight: bold;
+  font-style: italic;
+  color: red;
 }
 
 .submit {
