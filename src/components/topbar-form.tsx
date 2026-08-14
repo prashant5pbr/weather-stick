@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useFormData } from '@/hooks/use-form-data';
+import { minMaxDate } from '@/util/min-max-date';
 
 import weatherStyles from '@/css/weather-topbar.module.css';
 import formStyles from '@/css/form.module.css';
@@ -10,6 +11,9 @@ import formStyles from '@/css/form.module.css';
 const TopbarForm = function () {
   // Get the state for the inputs of the form and the handlers to update state
   const { inputDraft, handleChange, handleBlur } = useFormData();
+
+  // Get the minimum and maximum dates for the date input
+  const { minDate, maxDate } = minMaxDate();
 
   return (
     <form className={weatherStyles.search}>
@@ -48,6 +52,8 @@ const TopbarForm = function () {
             className={weatherStyles.input}
             onChange={(e) => handleChange('date', e)}
             value={inputDraft.date}
+            min={minDate}
+            max={maxDate}
           />
         </div>
       </div>

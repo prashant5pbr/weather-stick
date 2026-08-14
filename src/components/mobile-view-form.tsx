@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useFormData } from '@/hooks/use-form-data';
+import { minMaxDate } from '@/util/min-max-date';
 
 import weatherStyles from '@/css/weather-topbar.module.css';
 import mobileStyles from '@/css/mobile-form.module.css';
@@ -10,6 +11,9 @@ import mobileStyles from '@/css/mobile-form.module.css';
 const MobileViewForm = function () {
   // Get the state for the inputs of the form and the handlers to update state
   const { inputDraft, handleChange, handleBlur } = useFormData();
+
+  // Get the minimum and maximum dates for the date input
+  const { minDate, maxDate } = minMaxDate();
 
   return (
     <form className={mobileStyles.mobileForm}>
@@ -47,6 +51,8 @@ const MobileViewForm = function () {
             className={mobileStyles.input}
             onChange={(e) => handleChange('date', e)}
             value={inputDraft.date}
+            min={minDate}
+            max={maxDate}
           />
         </div>
 
