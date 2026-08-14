@@ -134,11 +134,11 @@
   color: #7c9bff;
 }
 
-.errorSymbol {
+.errorMessage {
   position: absolute;
-  right: 20px;
-  bottom: -35px;
-  font-size: 30px;
+  right: 12px;
+  bottom: -20px;
+  font-size: 15px;
   font-weight: bold;
   font-style: italic;
   color: red;
@@ -189,5 +189,14 @@
   .brandLogo {
     width: 46px;
     height: 46px;
+  }
+}
+
+/* Style code for error message for the given viewport */
+@media (max-width: 750) {
+  .errorMessage {
+    white-space: pre-line;
+    bottom: -38px;
+    letter-spacing: -0.8px;
   }
 }
