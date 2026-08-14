@@ -10,13 +10,13 @@ import mobileStyles from '@/css/mobile-form.module.css';
 // Component to create form in the topbar of the weather page for the smaller viewports
 const MobileViewForm = function () {
   // Get the state for the inputs of the form and the handlers to update state
-  const { inputDraft, handleChange, handleBlur } = useFormData();
+  const { inputDraft, isEmpty, setIsEmpty, handleChange, handleBlur, handleSubmit } = useFormData();
 
   // Get the minimum and maximum dates for the date input
   const { minDate, maxDate } = minMaxDate();
 
   return (
-    <form className={mobileStyles.mobileForm}>
+    <form className={mobileStyles.mobileForm} onSubmit={(e) => handleSubmit(e)}>
       {/* Input to accept place */}
       <div className={mobileStyles.placeDivision}>
         <div className={mobileStyles.inputWrap}>
@@ -26,10 +26,14 @@ const MobileViewForm = function () {
             name="place"
             type="text"
             className={mobileStyles.input}
-            onChange={(e) => handleChange('place', e)}
+            onChange={(e) => {
+              e.target.value === '' ? setIsEmpty(true) : setIsEmpty(false);
+              handleChange('place', e);
+            }}
             onBlur={(e) => handleBlur('place', e)}
             value={inputDraft.place}
             placeholder="Search a place…"
+            aria-invalid={isEmpty}
             autoComplete="off"
           />
         </div>

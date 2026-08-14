@@ -10,13 +10,13 @@ import formStyles from '@/css/form.module.css';
 // Component to create form in the topbar of the weather page
 const TopbarForm = function () {
   // Get the state for the inputs of the form and the handlers to update state
-  const { inputDraft, handleChange, handleBlur } = useFormData();
+  const { inputDraft, isEmpty, setIsEmpty, handleChange, handleBlur, handleSubmit } = useFormData();
 
   // Get the minimum and maximum dates for the date input
   const { minDate, maxDate } = minMaxDate();
 
   return (
-    <form className={weatherStyles.search}>
+    <form className={weatherStyles.search} onSubmit={(e) => handleSubmit(e)}>
       {/* Input to accept place */}
       <div className={`${formStyles.field} ${formStyles.fieldPlace}`}>
         <div className={weatherStyles.inputWrap}>
@@ -26,12 +26,17 @@ const TopbarForm = function () {
             name="place"
             type="text"
             className={weatherStyles.input}
-            onChange={(e) => handleChange('place', e)}
+            onChange={(e) => {
+              e.target.value === '' ? setIsEmpty(true) : setIsEmpty(false);
+              handleChange('place', e);
+            }}
             onBlur={(e) => handleBlur('place', e)}
             value={inputDraft.place}
             placeholder="Search a place…"
+            aria-invalid={isEmpty}
             autoComplete="off"
           />
+          <span className={weatherStyles.errorSymbol}>{isEmpty ? '!' : ''}</span>
         </div>
 
         {/* Link to select place using map */}
