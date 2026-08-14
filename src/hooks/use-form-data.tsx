@@ -21,6 +21,9 @@ const useFormData = function () {
     date: dateParam,
   });
 
+  // State to check if the input is empty
+  const [isEmpty, setIsEmpty] = useState(false);
+
   // Get the method to update the states in zustand store
   const setInput = useFormStore((state) => state.setInput);
 
@@ -39,10 +42,25 @@ const useFormData = function () {
     setInput(field, titleCase(e.target.value).trim());
   };
 
+  // Event handler for form submission
+  const handleSubmit = function (e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (inputDraft.place.trim() === '') {
+      setIsEmpty(true);
+      return;
+    }
+
+    setIsEmpty(false);
+  };
+
   return {
     inputDraft,
+    isEmpty,
+    setIsEmpty,
     handleChange,
     handleBlur,
+    handleSubmit,
   };
 };
 
