@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFormStore } from '@/stores/form-data-store';
-import { formatDate } from '@/util/date-format';
+import { minMaxDate } from '@/util/min-max-date';
 import { titleCase } from '@/util/string-format';
 
 import pageStyles from '@/css/page.module.css';
@@ -25,14 +25,8 @@ const Home = function () {
   const date = useFormStore((state) => state.date);
   const setInput = useFormStore((state) => state.setInput);
 
-  // Minimum date
-  let min = new Date('1940/01/01 GMT');
-  let minDate = formatDate(min);
-
-  // Maximum date
-  let max = new Date();
-  max.setDate(max.getDate() + 16);
-  let maxDate = formatDate(max);
+  // Get the minimum and maximum dates
+  const { minDate, maxDate } = minMaxDate();
 
   // Event handler to handle form submission
   const handleSubmit = function (e: React.SubmitEvent<HTMLFormElement>) {
