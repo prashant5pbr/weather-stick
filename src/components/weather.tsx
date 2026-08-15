@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useFormData } from '@/hooks/use-form-data';
 import { TopbarForm } from './topbar-form';
 import { MobileViewForm } from './mobile-view-form';
 
@@ -9,6 +10,9 @@ import weatherStyles from '@/css/weather-topbar.module.css';
 
 // Component to create weather page
 const Weather = function () {
+  // Get the state for the inputs of the form and the handlers to update state
+  const { inputDraft, isEmpty, setIsEmpty, handleChange, handleBlur, handleSubmit } = useFormData();
+
   return (
     <div className={pageStyles.page}>
       {/* Create the background image */}
@@ -28,10 +32,24 @@ const Weather = function () {
         </Link>
 
         {/* Form to accept input (place and date) in larger viewports */}
-        <TopbarForm />
+        <TopbarForm
+          inputDraft={inputDraft}
+          isEmpty={isEmpty}
+          setIsEmpty={setIsEmpty}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onSubmit={handleSubmit}
+        />
 
         {/* Form to be displayed in smaller viewports */}
-        <MobileViewForm />
+        <MobileViewForm
+          inputDraft={inputDraft}
+          isEmpty={isEmpty}
+          setIsEmpty={setIsEmpty}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onSubmit={handleSubmit}
+        />
       </header>
     </div>
   );
