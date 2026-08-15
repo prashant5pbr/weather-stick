@@ -1,22 +1,19 @@
 'use client';
 
 import Link from 'next/link';
-import { useFormData } from '@/hooks/use-form-data';
 import { minMaxDate } from '@/util/min-max-date';
+import { type DataProps } from '@/types/form-data.types';
 
 import weatherStyles from '@/css/weather-topbar.module.css';
 import formStyles from '@/css/form.module.css';
 
 // Component to create form in the topbar of the weather page
-const TopbarForm = function () {
-  // Get the state for the inputs of the form and the handlers to update state
-  const { inputDraft, isEmpty, setIsEmpty, handleChange, handleBlur, handleSubmit } = useFormData();
-
+const TopbarForm = function ({ inputDraft, isEmpty, setIsEmpty, onChange, onBlur, onSubmit }: DataProps) {
   // Get the minimum and maximum dates for the date input
   const { minDate, maxDate } = minMaxDate();
 
   return (
-    <form className={weatherStyles.search} onSubmit={(e) => handleSubmit(e)}>
+    <form className={weatherStyles.search} onSubmit={(e) => onSubmit(e)}>
       {/* Input to accept place */}
       <div className={`${formStyles.field} ${formStyles.fieldPlace}`}>
         <div className={weatherStyles.inputWrap}>
@@ -28,9 +25,9 @@ const TopbarForm = function () {
             className={weatherStyles.input}
             onChange={(e) => {
               e.target.value === '' ? setIsEmpty(true) : setIsEmpty(false);
-              handleChange('place', e);
+              onChange('place', e);
             }}
-            onBlur={(e) => handleBlur('place', e)}
+            onBlur={(e) => onBlur('place', e)}
             value={inputDraft.place}
             placeholder="Search a place…"
             aria-invalid={isEmpty}
@@ -56,7 +53,7 @@ const TopbarForm = function () {
             name="date"
             type="date"
             className={weatherStyles.input}
-            onChange={(e) => handleChange('date', e)}
+            onChange={(e) => onChange('date', e)}
             value={inputDraft.date}
             min={minDate}
             max={maxDate}
