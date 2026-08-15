@@ -38,7 +38,7 @@ const useFormData = function () {
   };
 
   // Handle the event when input loses focus
-  const handleBlur = function (field: 'place' | 'date', e: React.ChangeEvent<HTMLInputElement>) {
+  const handleBlur = function (field: 'place' | 'date', e: React.FocusEvent<HTMLInputElement>) {
     setInput(field, titleCase(e.target.value).trim());
   };
 
