@@ -13,6 +13,16 @@ const Weather = function () {
   // Get the state for the inputs of the form and the handlers to update state
   const { inputDraft, isEmpty, setIsEmpty, handleChange, handleBlur, handleSubmit } = useFormData();
 
+  // Object for the props
+  let propsObject = {
+    inputDraft: inputDraft,
+    isEmpty: isEmpty,
+    setIsEmpty: setIsEmpty,
+    onChange: handleChange,
+    onBlur: handleBlur,
+    onSubmit: handleSubmit,
+  };
+
   return (
     <div className={pageStyles.page}>
       {/* Create the background image */}
@@ -32,24 +42,10 @@ const Weather = function () {
         </Link>
 
         {/* Form to accept input (place and date) in larger viewports */}
-        <TopbarForm
-          inputDraft={inputDraft}
-          isEmpty={isEmpty}
-          setIsEmpty={setIsEmpty}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          onSubmit={handleSubmit}
-        />
+        <TopbarForm {...propsObject} />
 
         {/* Form to be displayed in smaller viewports */}
-        <MobileViewForm
-          inputDraft={inputDraft}
-          isEmpty={isEmpty}
-          setIsEmpty={setIsEmpty}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          onSubmit={handleSubmit}
-        />
+        <MobileViewForm {...propsObject} />
       </header>
     </div>
   );
