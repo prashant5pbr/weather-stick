@@ -9,8 +9,12 @@ interface FormDetails {
   place: string;
   date: string;
 
+  savedPlace: string;
+  savedDate: string;
+
   // Define the action method to set the place and date in the input fields
   setInput: (field: 'place' | 'date', value: string) => void;
+  setSavedInput: (field: 'savedPlace' | 'savedDate', value: string) => void;
 }
 
 // Custom hook (zustand store) to manage and store the form details
@@ -23,7 +27,11 @@ const useFormStore = create<FormDetails>()(
       place: '',
       date: formatDate(new Date()),
 
+      savedPlace: '',
+      savedDate: '',
+
       setInput: (field, value) => set((state) => ({ ...state, [field]: value })),
+      setSavedInput: (field, value) => set((state) => ({ ...state, [field]: value })),
     }),
 
     // name gives unique identifier to the data from the given store
