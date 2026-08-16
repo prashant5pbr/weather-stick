@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFormStore } from '@/stores/form-data-store';
 import { minMaxDate } from '@/util/min-max-date';
@@ -24,6 +24,15 @@ const Home = function () {
   const place = useFormStore((state) => state.place);
   const date = useFormStore((state) => state.date);
   const setInput = useFormStore((state) => state.setInput);
+  const savedPlace = useFormStore((state) => state.savedPlace);
+  const savedDate = useFormStore((state) => state.savedDate);
+  const setSavedInput = useFormStore((state) => state.setSavedInput);
+
+  // Use previous saved values on reload if there are current search values are empty
+  useEffect(() => {
+    if (place.trim() === '') setInput('place', savedPlace);
+    if (date === '') setInput('date', savedDate);
+  }, []);
 
   // Get the minimum and maximum dates
   const { minDate, maxDate } = minMaxDate();
@@ -32,6 +41,8 @@ const Home = function () {
   const handleSubmit = function (e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    const formattedPlace = titleCase(place);
+
     // Check if the place input is empty
     if (place.trim() === '') {
       setIsEmpty(true);
@@ -39,12 +50,10 @@ const Home = function () {
     }
 
     setIsEmpty(false);
-    setInput('place', titleCase(place).trim());
+    setInput('place', formattedPlace);
 
     // Encode the values to be safely used in URL as parameters
-    let placeParam = titleCase(place.trim());
-    placeParam = encodeURIComponent(placeParam);
-
+    let placeParam = encodeURIComponent(formattedPlace);
     let dateParam = encodeURIComponent(date);
 
     // Display the weather page with the parameters
@@ -102,8 +111,10 @@ const Home = function () {
                 className={formStyles.input}
                 value={place}
                 onChange={(e) => {
-                  e.target.value === '' ? setIsEmpty(true) : setIsEmpty(false);
-                  setInput('place', e.target.value);
+                  const newPlace = e.target.value;
+                  newPlace === '' ? setIsEmpty(true) : setIsEmpty(false);
+                  setInput('place', newPlace);
+                  setSavedInput('savedPlace', newPlace);
                 }}
                 placeholder="e.g. Tokyo, London"
                 aria-invalid={isEmpty}
@@ -131,7 +142,11 @@ const Home = function () {
                 type="date"
                 className={formStyles.input}
                 value={date}
-                onChange={(e) => setInput('date', e.target.value)}
+                onChange={(e) => {
+                  const newDate = e.target.value;
+                  setInput('date', newDate);
+                  setSavedInput('savedDate', newDate);
+                }}
                 min={minDate}
                 max={maxDate}
               />
