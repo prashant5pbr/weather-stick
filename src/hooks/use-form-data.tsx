@@ -29,17 +29,26 @@ const useFormData = function () {
 
   // Event handler for change in input
   const handleChange = function (field: 'place' | 'date', e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = e.target.value;
+
     setInputDraft((prevData) => ({
       ...prevData,
-      [field]: e.target.value,
+      [field]: newValue,
     }));
 
-    setInput(field, e.target.value);
+    setInput(field, newValue);
   };
 
   // Handle the event when input loses focus
   const handleBlur = function (field: 'place' | 'date', e: React.FocusEvent<HTMLInputElement>) {
-    setInput(field, titleCase(e.target.value).trim());
+    const newValue = titleCase(e.target.value);
+
+    setInputDraft((prevData) => ({
+      ...prevData,
+      [field]: newValue,
+    }));
+
+    setInput(field, newValue);
   };
 
   // Event handler for form submission
