@@ -43,6 +43,7 @@
   margin: 20px 0 0;
   max-width: 560px;
   font-size: clamp(1rem, 2.4vw, 1.15rem);
+  font-weight: bold;
   line-height: 1.6;
   color: #aab3d6;
 }
