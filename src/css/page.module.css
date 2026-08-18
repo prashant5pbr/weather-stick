@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..600&display=swap');
+
 .page {
   position: absolute;
   top: 0;
@@ -7,9 +9,9 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  color: #eef2ff;
+  color: #12314d;
   font-family:
-    'Inter',
+    'Space Grotesk',
     system-ui,
     -apple-system,
     'Segoe UI',
@@ -17,60 +19,83 @@
     Helvetica,
     Arial,
     sans-serif;
-  background:
-    radial-gradient(1200px 600px at 15% -10%, #1b2350 0%, transparent 60%),
-    radial-gradient(1000px 700px at 100% 0%, #24184a 0%, transparent 55%),
-    linear-gradient(160deg, #0b1030 0%, #0a0d24 45%, #070917 100%);
+  background-color: #2f6fd0;
 }
 
-/* ---------- Ambient animated background ---------- */
-.aurora {
+/* ---------- Background: clear blue sky with Tyndall effect ---------- */
+.canvas {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 
-.blob {
+/* The scattered blue of the sky — deep at the zenith, pale near the horizon */
+.sky {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.55;
-  animation: float 16s ease-in-out infinite;
+  inset: 0;
+  background:
+    radial-gradient(90% 70% at 72% -8%, rgba(255, 252, 236, 0.55) 0%, transparent 46%),
+    linear-gradient(180deg, #0f3f8f 0%, #1e5fb8 26%, #3f86d6 52%, #79b3e8 76%, #c2e0f4 100%);
 }
 
-.blobOne {
-  width: 460px;
-  height: 460px;
-  top: -120px;
-  left: -80px;
-  background: #4f7bff;
+/*h e sun sitting just off the top-right corner, where the rays are born */
+.sun {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    36% 36% at 72% -8%,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 247, 214, 0.6) 16%,
+    rgba(255, 247, 214, 0.18) 34%,
+    transparent 58%
+  );
 }
 
-.blobTwo {
-  width: 520px;
-  height: 520px;
-  top: 20%;
-  right: -140px;
-  background: #a855f7;
-  animation-delay: -5s;
+/* right crepuscular rays fanning out from the sun through the haze */
+.beams {
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(
+    from 0deg at 72% -8%,
+    transparent 0deg,
+    transparent 3deg,
+    rgba(255, 255, 255, 0.22) 3.4deg,
+    rgba(255, 253, 240, 0.4) 4.2deg,
+    rgba(255, 255, 255, 0.22) 5deg,
+    transparent 5.4deg,
+    transparent 8.4deg
+  );
+  mask-image: radial-gradient(125% 125% at 72% -8%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.55) 28%, transparent 64%);
+  -webkit-mask-image: radial-gradient(
+    125% 125% at 72% -8%,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.55) 28%,
+    transparent 64%
+  );
+  mix-blend-mode: screen;
+  filter: blur(1.5px);
+  animation: sway 16s ease-in-out infinite;
 }
 
-.blobThree {
-  width: 400px;
-  height: 400px;
-  bottom: -160px;
-  left: 30%;
-  background: #22d3ee;
-  animation-delay: -9s;
+/* Soft atmospheric haze brightening the lower sky */
+.haze {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(80% 50% at 72% 2%, rgba(255, 255, 255, 0.22) 0%, transparent 60%),
+    linear-gradient(180deg, transparent 58%, rgba(214, 236, 250, 0.32) 100%);
 }
 
-@keyframes float {
+@keyframes sway {
   0%,
   100% {
-    transform: translate(0, 0) scale(1);
+    transform: rotate(-1.4deg);
+    opacity: 0.9;
   }
   50% {
-    transform: translate(0, -40px) scale(1.08);
+    transform: rotate(1.4deg);
+    opacity: 1;
   }
 }
