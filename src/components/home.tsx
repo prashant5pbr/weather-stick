@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { Background } from './background';
 import { useFormStore } from '@/stores/form-data-store';
 import { minMaxDate } from '@/util/min-max-date';
 import { titleCase } from '@/util/string-format';
@@ -28,7 +29,7 @@ const Home = function () {
   const savedDate = useFormStore((state) => state.savedDate);
   const setSavedInput = useFormStore((state) => state.setSavedInput);
 
-  // Use previous saved values on reload if there are current search values are empty
+  // Use previous saved values on reload if the current search values are empty
   useEffect(() => {
     if (place.trim() === '') setInput('place', savedPlace);
     if (date === '') setInput('date', savedDate);
@@ -63,11 +64,7 @@ const Home = function () {
   return (
     <div className={pageStyles.page}>
       {/* Create the background style */}
-      <div className={pageStyles.aurora} aria-hidden="true">
-        <span className={`${pageStyles.blob} ${pageStyles.blobOne}`} />
-        <span className={`${pageStyles.blob} ${pageStyles.blobTwo}`} />
-        <span className={`${pageStyles.blob} ${pageStyles.blobThree}`} />
-      </div>
+      <Background />
 
       {/* App logo and title */}
       <header className={brandStyles.container}>

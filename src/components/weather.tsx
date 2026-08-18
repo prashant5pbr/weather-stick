@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { Background } from './background';
 import { useFormData } from '@/hooks/use-form-data';
 import { TopbarForm } from './topbar-form';
 import { MobileViewForm } from './mobile-view-form';
@@ -26,11 +27,7 @@ const Weather = function () {
   return (
     <div className={pageStyles.page}>
       {/* Create the background image */}
-      <div className={pageStyles.aurora} aria-hidden="true">
-        <span className={`${pageStyles.blob} ${pageStyles.blobOne}`} />
-        <span className={`${pageStyles.blob} ${pageStyles.blobTwo}`} />
-        <span className={`${pageStyles.blob} ${pageStyles.blobThree}`} />
-      </div>
+      <Background />
 
       {/* Top section of the weather page containing logo and form */}
       <header className={weatherStyles.container}>
