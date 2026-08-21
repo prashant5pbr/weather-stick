@@ -1,0 +1,142 @@
+/* Bottom section of the weather page: holds the history slot and the table */
+.section {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.75rem clamp(1rem, 4vw, 2.5rem) 1.25rem;
+}
+
+.resultTitle {
+  margin: 0;
+  margin-left: 15px;
+  color: lightblue;
+}
+
+/* Scroll container so the table scrolls while the top bar stays fixed */
+.scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: calc(100dvh - 9rem);
+  overflow: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 22px 48px -26px rgba(8, 30, 55, 0.6);
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: max-content;
+  min-width: 100%;
+  color: #12314d;
+  font-size: 0.82rem;
+}
+
+/* Shared sticky-header styling for the top row */
+.corner,
+.timeHead {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 0.55rem 0.7rem;
+  background: rgba(226, 240, 251, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(18, 49, 77, 0.16);
+  text-align: left;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+/* Top-left corner cell (Date header) sticks to both top and left */
+.corner {
+  left: 0;
+  z-index: 3;
+  font-weight: 600;
+  color: #0c3b6e;
+}
+
+.timeLabel {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #0c3b6e;
+}
+
+.metricLabel {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 500;
+  line-height: 1.55;
+  color: #4a6b88;
+}
+
+/* Date label at the start of every body row, sticky to the left */
+.dateCell {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  padding: 0.55rem 0.7rem;
+  background: rgba(226, 240, 251, 0.82);
+  border-bottom: 1px solid rgba(18, 49, 77, 0.1);
+  font-weight: 600;
+  color: #0c3b6e;
+  text-align: left;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+/* Data cell holding the stacked metric values for one day + time slot */
+.dataCell {
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid rgba(18, 49, 77, 0.08);
+  border-left: 1px solid rgba(18, 49, 77, 0.06);
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.value {
+  display: block;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #12314d;
+}
+
+/* "(Today)" marker beneath the matching row's date */
+.todayTag {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #4a6b88;
+}
+
+/* Gentle zebra striping for readability */
+.dataCell:nth-child(even) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Placeholder panel for loading / error / empty states */
+.state {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #12314d;
+  font-size: 0.95rem;
+  text-align: center;
+}
