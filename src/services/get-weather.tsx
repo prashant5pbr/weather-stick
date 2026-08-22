@@ -9,7 +9,7 @@ const archiveURL = 'https://archive-api.open-meteo.com/v1/archive';
 const forecastURL = 'https://api.open-meteo.com/v1/forecast';
 
 // Hourly variables requested from the weather endpoints
-const hourlVars = 'temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation';
+const hourlyVars = 'temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation';
 
 // Function to fetch the weather data for the given place and shape it into format to show in the table
 const getWeather = async function (place: PlaceData, anchorDateStr: string, signal?: AbortSignal): Promise<Row[]> {
@@ -22,7 +22,7 @@ const getWeather = async function (place: PlaceData, anchorDateStr: string, sign
     longitude: String(place.longitude),
     start_date: startDate,
     end_date: endDate,
-    hourly: hourlVars,
+    hourly: hourlyVars,
     timezone: 'auto',
   });
 
