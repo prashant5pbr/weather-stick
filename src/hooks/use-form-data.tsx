@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { useFormStore } from '@/stores/form-data-store';
 import { formatDate } from '@/util/date-format';
@@ -8,6 +9,9 @@ import { titleCase } from '@/util/string-format';
 
 // Custom hook to fetch data from the url parameters and handle state updates
 const useFormData = function () {
+  // Create an object of useRouter() to handle the URLs and views
+  const router = useRouter();
+
   // Get the parameters from url
   const searchParams = useSearchParams();
 
@@ -61,6 +65,16 @@ const useFormData = function () {
     }
 
     setIsEmpty(false);
+
+    // Format the place name
+    const formattedPlace = titleCase(inputDraft.place);
+
+    // Encode the values to be safely used in URL as parameters
+    let placeParam = encodeURIComponent(formattedPlace);
+    let dateParam = encodeURIComponent(inputDraft.date);
+
+    // Display the weather page with the parameters
+    router.push(`/weather?place=${placeParam}&date=${dateParam}`);
   };
 
   return {
