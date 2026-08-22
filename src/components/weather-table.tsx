@@ -6,8 +6,11 @@ import type { Cell } from '@/types/row-data.types';
 
 import styles from '@/css/weather-table.module.css';
 
+// Shape for the keys of Cell that hold a numeric metric (excludes the string hour field)
+type MetricKey = { [K in keyof Cell]: Cell[K] extends number | null ? K : never }[keyof Cell];
+
 // Metric rows stacked inside every header and data cell, in display order
-const metrics = [
+const metrics: { key: MetricKey; label: string; unit: string }[] = [
   { key: 'temp', label: 'Temp', unit: '°C' },
   { key: 'humidity', label: 'Humidity', unit: ' %' },
   { key: 'wind', label: 'Wind', unit: ' km/h' },
@@ -74,7 +77,7 @@ const WeatherTable = function () {
                       <td key={cell.hour} className={styles.dataCell}>
                         {metrics.map((metric) => (
                           <span key={metric.key} className={styles.value}>
-                            {formatValue(cell[metric.key as keyof Cell] as number | null, metric.unit)}
+                            {formatValue(cell[metric.key], metric.unit)}
                           </span>
                         ))}
                       </td>
