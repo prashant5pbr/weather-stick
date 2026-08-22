@@ -18,7 +18,7 @@
 
 /* Scroll container so the table scrolls while the top bar stays fixed */
 .scroll {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-height: 0;
   max-height: calc(100dvh - 9rem);
   overflow: auto;
