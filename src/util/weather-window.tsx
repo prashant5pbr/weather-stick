@@ -1,8 +1,6 @@
+import { hours } from './time-slots';
 import type { HourlyResponse } from '@/types/hourly-response.types';
 import type { Row } from '@/types/row-data.types';
-
-// The time slots shown across the table: every 2nd hour -> 12 columns
-const hours = ['00', '02', '04', '06', '08', '10', '12', '14', '16', '18', '20', '22'];
 
 // Function to create the rows of data for the weather table
 const buildRows = function (hourlyData: HourlyResponse, dateArray: string[]): Row[] {
@@ -18,7 +16,6 @@ const buildRows = function (hourlyData: HourlyResponse, dateArray: string[]): Ro
 
       return {
         hour,
-        label: `${hour}:00`,
         temp: index === undefined ? null : hourlyData.temperature_2m[index],
         humidity: index === undefined ? null : hourlyData.relative_humidity_2m[index],
         wind: index === undefined ? null : hourlyData.wind_speed_10m[index],

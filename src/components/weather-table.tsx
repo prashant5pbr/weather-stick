@@ -1,12 +1,10 @@
 'use client';
 
 import { useWeather } from '@/hooks/use-weather';
+import { hours } from '@/util/time-slots';
 import type { Cell } from '@/types/row-data.types';
 
 import styles from '@/css/weather-table.module.css';
-
-// The time slots shown across the table: every 2nd hour -> 12 columns
-const hours = ['00', '02', '04', '06', '08', '10', '12', '14', '16', '18', '20', '22'];
 
 // Metric rows stacked inside every header and data cell, in display order
 const metrics = [
