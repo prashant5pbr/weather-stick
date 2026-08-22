@@ -5,6 +5,7 @@ import { Background } from './background';
 import { useFormData } from '@/hooks/use-form-data';
 import { TopbarForm } from './topbar-form';
 import { MobileViewForm } from './mobile-view-form';
+import { WeatherTable } from './weather-table';
 
 import pageStyles from '@/css/page.module.css';
 import weatherStyles from '@/css/weather-topbar.module.css';
@@ -44,6 +45,9 @@ const Weather = function () {
         {/* Form to be displayed in smaller viewports */}
         <MobileViewForm {...propsObject} />
       </header>
+
+      {/* Display the table containing weather data */}
+      <WeatherTable />
     </div>
   );
 };
