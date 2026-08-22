@@ -88,7 +88,7 @@ const Home = function () {
 
         {/* Description for the app */}
         <p className={mainStyles.description}>
-          Type a city or pick a spot on the map, select any date from 01/01/1940 to 16 days in the future and get a
+          Type a city or pick a spot on the map, select any date from 01/01/1940 to 15 days in the future and get a
           clear and beautiful historical weather data or reliable forecast in seconds.
         </p>
 

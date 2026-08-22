@@ -6,8 +6,8 @@ const windowDays = 8;
 // Anchor offset days to decide between using the archive and forecast endpoint
 const archiveAnchorOffset = -20;
 
-// Furthest future day available from the forecast endpoint
-const maxFutureOffset = 16;
+// Furthest future day available from the forecast endpoint (today counts as day 1, so 16th day is today+15)
+const maxFutureOffset = 15;
 
 // Function to build a local-midnight Date from a YYYY-MM-DD string (avoids UTC day-shifting)
 const toLocalDate = function (dateStr: string) {
