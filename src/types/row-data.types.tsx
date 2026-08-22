@@ -1,7 +1,6 @@
 // Shape of the data for the cells of the weather table
 interface Cell {
   hour: string;
-  label: string;
   temp: number | null;
   humidity: number | null;
   wind: number | null;
