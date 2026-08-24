@@ -1,12 +1,14 @@
+import { geocodingURL } from './endpoints';
 import type { PlaceData } from '@/types/place-data.types';
-
-// Open-Meteo geocoding endpoint
-const geocodingURL = 'https://geocoding-api.open-meteo.com/v1/search';
 
 // Function to get data about a place like coordinates, country name, etc.
 const getPlaceData = async function (place: string, signal?: AbortSignal): Promise<PlaceData | null> {
+  // Extract the first part of the place name as geocoding takes a single place name
+  // (a shared "Tokyo, Japan" style label still resolves on "Tokyo")
+  const term = place.split(',')[0].trim();
+
   // Format the url with query parameters
-  const url = `${geocodingURL}?name=${encodeURIComponent(place)}&count=1&language=en&format=json`;
+  const url = `${geocodingURL}?name=${encodeURIComponent(term)}&count=1&language=en&format=json`;
 
   // Send the request to the url
   const response = await fetch(url, { signal });

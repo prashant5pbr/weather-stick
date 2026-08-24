@@ -1,12 +1,9 @@
 import { getWeatherRequest } from '@/util/weather-endpoint';
 import { buildRows } from '@/util/weather-window';
+import { archiveURL, forecastURL } from './endpoints';
 import type { PlaceData } from '@/types/place-data.types';
 import type { HourlyResponse } from '@/types/hourly-response.types';
 import type { Row } from '@/types/row-data.types';
-
-// Base URLs for the two Open-Meteo weather endpoints
-const archiveURL = 'https://archive-api.open-meteo.com/v1/archive';
-const forecastURL = 'https://api.open-meteo.com/v1/forecast';
 
 // Hourly variables requested from the weather endpoints
 const hourlyVars = 'temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation';
