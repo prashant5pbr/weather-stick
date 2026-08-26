@@ -4,9 +4,12 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Background } from './background';
+import { PlaceAutocomplete } from './place-autocomplete';
 import { useFormStore } from '@/stores/form-data-store';
 import { minMaxDate } from '@/util/min-max-date';
 import { titleCase } from '@/util/string-format';
+import { placeLabel } from '@/util/place-format';
+import type { PlaceSuggestion } from '@/types/place-suggestion.types';
 
 import pageStyles from '@/css/page.module.css';
 import brandStyles from '@/css/brand.module.css';
@@ -17,6 +20,9 @@ import formStyles from '@/css/form.module.css';
 const Home = function () {
   // State to check if the input is empty
   const [isEmpty, setIsEmpty] = useState(false);
+
+  // The place chosen from the autocomplete dropdown (carries coordinates); null when free-typed
+  const [selectedPlace, setSelectedPlace] = useState<PlaceSuggestion | null>(null);
 
   // Create an object of useRouter() to handle the URLs and views
   const router = useRouter();
@@ -38,10 +44,22 @@ const Home = function () {
   // Get the minimum and maximum dates
   const { minDate, maxDate } = minMaxDate();
 
+  // Event handler for choosing a suggestion from the autocomplete dropdown
+  const handlePlaceSelect = function (chosen: PlaceSuggestion) {
+    // Show the disambiguated label so the user sees which place was picked
+    const label = placeLabel(chosen);
+
+    setSelectedPlace(chosen);
+    setIsEmpty(false);
+    setInput('place', label);
+    setSavedInput('savedPlace', label);
+  };
+
   // Event handler to handle form submission
   const handleSubmit = function (e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    // Set the place to title case
     const formattedPlace = titleCase(place);
 
     // Check if the place input is empty
@@ -57,8 +75,17 @@ const Home = function () {
     let placeParam = encodeURIComponent(formattedPlace);
     let dateParam = encodeURIComponent(date);
 
+    // Carry the exact coordinates when a suggestion was picked, so the weather...
+    // ...page uses that precise place instead of re-geocoding the name
+    let url = `/weather?place=${placeParam}&date=${dateParam}`;
+
+    // Add parameters to the url only when the place is selected using drop down
+    if (selectedPlace) {
+      url += `&lat=${selectedPlace.latitude}&lon=${selectedPlace.longitude}`;
+    }
+
     // Display the weather page with the parameters
-    router.push(`/weather?place=${placeParam}&date=${dateParam}`);
+    router.push(url);
   };
 
   return (
@@ -102,20 +129,23 @@ const Home = function () {
             {/* Input to accept place */}
             <div className={formStyles.inputWrap}>
               <img className={formStyles.placeIcon} src="/map-symbol.svg" draggable="false" />
-              <input
+
+              {/* Component to add dropdown showing place suggestions as user types */}
+              <PlaceAutocomplete
                 id="place"
-                type="text"
-                className={formStyles.input}
+                inputClassName={formStyles.input}
                 value={place}
                 onChange={(e) => {
                   const newPlace = e.target.value;
                   newPlace === '' ? setIsEmpty(true) : setIsEmpty(false);
                   setInput('place', newPlace);
                   setSavedInput('savedPlace', newPlace);
+                  setSelectedPlace(null);
                 }}
-                placeholder="e.g. Tokyo, London"
-                aria-invalid={isEmpty}
-                autoComplete="off"
+                onSelect={handlePlaceSelect}
+                placeholder="e.g. Tokyo, London..."
+                ariaInvalid={isEmpty}
+                openAbove
               />
             </div>
 

@@ -2,13 +2,22 @@
 
 import Link from 'next/link';
 import { minMaxDate } from '@/util/min-max-date';
+import { PlaceAutocomplete } from './place-autocomplete';
 import { type DataProps } from '@/types/form-data.types';
 
 import weatherStyles from '@/css/weather-topbar.module.css';
 import mobileStyles from '@/css/mobile-form.module.css';
 
 // Component to create form in the topbar of the weather page for the smaller viewports
-const MobileViewForm = function ({ inputDraft, isEmpty, setIsEmpty, onChange, onBlur, onSubmit }: DataProps) {
+const MobileViewForm = function ({
+  inputDraft,
+  isEmpty,
+  setIsEmpty,
+  onChange,
+  onBlur,
+  onPlaceSelect,
+  onSubmit,
+}: DataProps) {
   // Get the minimum and maximum dates for the date input
   const { minDate, maxDate } = minMaxDate();
 
@@ -18,20 +27,19 @@ const MobileViewForm = function ({ inputDraft, isEmpty, setIsEmpty, onChange, on
       <div className={mobileStyles.placeDivision}>
         <div className={mobileStyles.inputWrap}>
           <img className={weatherStyles.placeIcon} src="/map-symbol.svg" draggable="false" />
-          <input
+          <PlaceAutocomplete
             id="place"
             name="place"
-            type="text"
-            className={mobileStyles.input}
+            inputClassName={mobileStyles.input}
+            value={inputDraft.place}
             onChange={(e) => {
               e.target.value === '' ? setIsEmpty(true) : setIsEmpty(false);
               onChange('place', e);
             }}
+            onSelect={onPlaceSelect}
             onBlur={(e) => onBlur('place', e)}
-            value={inputDraft.place}
             placeholder="Search a place…"
-            aria-invalid={isEmpty}
-            autoComplete="off"
+            ariaInvalid={isEmpty}
           />
         </div>
 

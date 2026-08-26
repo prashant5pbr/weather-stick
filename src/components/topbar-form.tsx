@@ -2,13 +2,22 @@
 
 import Link from 'next/link';
 import { minMaxDate } from '@/util/min-max-date';
-import { type DataProps } from '@/types/form-data.types';
+import { PlaceAutocomplete } from './place-autocomplete';
+import type { DataProps } from '@/types/form-data.types';
 
 import weatherStyles from '@/css/weather-topbar.module.css';
 import formStyles from '@/css/form.module.css';
 
 // Component to create form in the topbar of the weather page
-const TopbarForm = function ({ inputDraft, isEmpty, setIsEmpty, onChange, onBlur, onSubmit }: DataProps) {
+const TopbarForm = function ({
+  inputDraft,
+  isEmpty,
+  setIsEmpty,
+  onChange,
+  onBlur,
+  onPlaceSelect,
+  onSubmit,
+}: DataProps) {
   // Get the minimum and maximum dates for the date input
   const { minDate, maxDate } = minMaxDate();
 
@@ -18,20 +27,19 @@ const TopbarForm = function ({ inputDraft, isEmpty, setIsEmpty, onChange, onBlur
       <div className={`${formStyles.field} ${formStyles.fieldPlace}`}>
         <div className={weatherStyles.inputWrap}>
           <img className={weatherStyles.placeIcon} src="/map-symbol.svg" draggable="false" />
-          <input
+          <PlaceAutocomplete
             id="place"
             name="place"
-            type="text"
-            className={weatherStyles.input}
+            inputClassName={weatherStyles.input}
+            value={inputDraft.place}
             onChange={(e) => {
               e.target.value === '' ? setIsEmpty(true) : setIsEmpty(false);
               onChange('place', e);
             }}
+            onSelect={onPlaceSelect}
             onBlur={(e) => onBlur('place', e)}
-            value={inputDraft.place}
             placeholder="Search a place…"
-            aria-invalid={isEmpty}
-            autoComplete="off"
+            ariaInvalid={isEmpty}
           />
 
           <span className={weatherStyles.errorMessage}>{isEmpty ? 'Empty\nInput' : ''}</span>
