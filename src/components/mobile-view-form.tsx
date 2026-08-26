@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { minMaxDate } from '@/util/min-max-date';
 import { PlaceAutocomplete } from './place-autocomplete';
+import { MapPickerLink } from './map-picker-link';
 import { type DataProps } from '@/types/form-data.types';
 
 import weatherStyles from '@/css/weather-topbar.module.css';
@@ -44,9 +44,7 @@ const MobileViewForm = function ({
         </div>
 
         {/* Link to accept place using map */}
-        <Link href="#">
-          <img className={mobileStyles.mapLogo} src="/map-symbol2.svg" draggable="false" />
-        </Link>
+        <MapPickerLink logoClassName={mobileStyles.mapLogo} />
       </div>
 
       {/* Input to accept date */}

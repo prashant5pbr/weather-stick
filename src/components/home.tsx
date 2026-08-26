@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Background } from './background';
 import { PlaceAutocomplete } from './place-autocomplete';
+import { MapPickerLink } from './map-picker-link';
 import { useFormStore } from '@/stores/form-data-store';
 import { minMaxDate } from '@/util/min-max-date';
 import { titleCase } from '@/util/string-format';
@@ -150,10 +151,11 @@ const Home = function () {
             </div>
 
             {/* Choice to accept place using map */}
-            <Link className={formStyles.mapLink} href="#" onClick={(e) => e.preventDefault()}>
-              <img className={formStyles.mapLogo} src="/map-symbol2.svg" draggable="false" />
-              Choose a place on map
-            </Link>
+            <MapPickerLink
+              className={formStyles.mapLink}
+              logoClassName={formStyles.mapLogo}
+              label="Choose a place on map"
+            />
           </div>
 
           <div className={`${formStyles.field} ${formStyles.fieldDate}`}>

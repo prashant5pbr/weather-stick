@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { minMaxDate } from '@/util/min-max-date';
 import { PlaceAutocomplete } from './place-autocomplete';
+import { MapPickerLink } from './map-picker-link';
 import type { DataProps } from '@/types/form-data.types';
 
 import weatherStyles from '@/css/weather-topbar.module.css';
@@ -46,10 +46,11 @@ const TopbarForm = function ({
         </div>
 
         {/* Link to select place using map */}
-        <Link className={weatherStyles.mapLink} href="#">
-          <img className={formStyles.mapLogo} src="/map-symbol2.svg" draggable="false" />
-          Choose a place on map
-        </Link>
+        <MapPickerLink
+          className={weatherStyles.mapLink}
+          logoClassName={formStyles.mapLogo}
+          label="Choose a place on map"
+        />
       </div>
 
       {/* Input to accept date */}
