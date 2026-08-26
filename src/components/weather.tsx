@@ -13,7 +13,7 @@ import weatherStyles from '@/css/weather-topbar.module.css';
 // Component to create weather page
 const Weather = function () {
   // Get the state for the inputs of the form and the handlers to update state
-  const { inputDraft, isEmpty, setIsEmpty, handleChange, handleBlur, handleSubmit } = useFormData();
+  const { inputDraft, isEmpty, setIsEmpty, handleChange, handleBlur, handlePlaceSelect, handleSubmit } = useFormData();
 
   // Object for the props
   let propsObject = {
@@ -22,6 +22,7 @@ const Weather = function () {
     setIsEmpty: setIsEmpty,
     onChange: handleChange,
     onBlur: handleBlur,
+    onPlaceSelect: handlePlaceSelect,
     onSubmit: handleSubmit,
   };
 
