@@ -43,6 +43,15 @@ const PlaceAutocomplete = function ({
   // Only surface the dropdown once the query is long enough to be meaningful
   const showDropdown = open && value.trim().length >= 2;
 
+  // Narrow the results by anything typed after the first comma (region/country).
+  const tail = value.split(',').slice(1).join(',').trim().toLowerCase();
+
+  const visibleSuggestions = tail
+    ? suggestions.filter((place) =>
+        [place.region, place.country].filter(Boolean).join(', ').toLowerCase().includes(tail),
+      )
+    : suggestions;
+
   // Handle typing: reopen the dropdown and let the parent update the value
   const handleInputChange = function (e: React.ChangeEvent<HTMLInputElement>) {
     setOpen(true);
@@ -59,21 +68,21 @@ const PlaceAutocomplete = function ({
 
   // Keyboard navigation within the dropdown
   const handleKeyDown = function (e: React.KeyboardEvent<HTMLInputElement>) {
-    if (!showDropdown || suggestions.length === 0) {
+    if (!showDropdown || visibleSuggestions.length === 0) {
       return;
     }
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setActiveIndex((i) => (i + 1) % suggestions.length);
+      setActiveIndex((i) => (i + 1) % visibleSuggestions.length);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setActiveIndex((i) => (i <= 0 ? suggestions.length - 1 : i - 1));
+      setActiveIndex((i) => (i <= 0 ? visibleSuggestions.length - 1 : i - 1));
     } else if (e.key === 'Enter') {
       // Only intercept Enter when an option is highlighted; otherwise let the form submit
       if (activeIndex >= 0) {
         e.preventDefault();
-        handleSelect(suggestions[activeIndex]);
+        handleSelect(visibleSuggestions[activeIndex]);
       }
     } else if (e.key === 'Escape') {
       setOpen(false);
@@ -110,10 +119,10 @@ const PlaceAutocomplete = function ({
         <ul className={`${styles.dropdown} ${openAbove ? styles.dropUp : ''}`} role="listbox">
           {loading && <li className={styles.status}>Searching…</li>}
 
-          {!loading && suggestions.length === 0 && <li className={styles.status}>No matches</li>}
+          {!loading && visibleSuggestions.length === 0 && <li className={styles.status}>No matches</li>}
 
           {!loading &&
-            suggestions.map((place, index) => (
+            visibleSuggestions.map((place, index) => (
               <li
                 key={place.id}
                 role="option"
