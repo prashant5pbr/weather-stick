@@ -11,4 +11,4 @@ interface DataProps {
   onSubmit: React.SubmitEventHandler<HTMLFormElement>;
 }
 
-export { type DataProps };
+export type { DataProps };
