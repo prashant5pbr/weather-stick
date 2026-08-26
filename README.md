@@ -1,5 +1,28 @@
 # Interactive Geo-Spatial Weather Analytics Dashboard (Weather Stick)
 
+### 🔗 Live Link [https://weather-stick.vercel.app](https://weather-stick.vercel.app)
+
+<table>
+  <tr>
+    <td><img src="media/Homepage.png" alt="Homepage on desktop" height="360" /></td>
+    <td><img src="media/Homepage-mobile.png" alt="Homepage on mobile" height="360" /></td>
+  </tr>
+</table>
+
+_One responsive layout, desktop to mobile._
+
+<img src="media/Autocomplete.png" alt="Typing a city shows several matches" width="820" />
+
+<img src="media/Autocomplete-narrowed.png" alt="Adding the country narrows to the exact one" width="820" />
+
+_Type a city, then refine by region or country to pin the exact place._
+
+![Weather results table](media/Results.png)
+
+_The hour-by-hour matrix — days × time-slots, each cell stacking temperature, humidity, wind and precipitation._
+
+---
+
 **Your Sky at a Glance.** Weather Stick turns a place and a date into a clean, scrollable hour-by-hour weather matrix — pulling from **80+ years of historical records (since 1940)** or **live forecasts up to 15 days ahead**, and deciding which source to use automatically.
 
 > This is a front-end engineering showcase built around a deceptively simple idea. It shows the weather but the interesting part is **how** it does it — the endpoint routing, the race handling, and the disambiguation under the hood — and where it's headed (see the [Roadmap](#roadmap)).
