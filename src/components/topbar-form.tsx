@@ -17,6 +17,8 @@ const TopbarForm = function ({
   onBlur,
   onPlaceSelect,
   onSubmit,
+  initialLat,
+  initialLon,
 }: DataProps) {
   // Get the minimum and maximum dates for the date input
   const { minDate, maxDate } = minMaxDate();
@@ -51,6 +53,8 @@ const TopbarForm = function ({
           logoClassName={formStyles.mapLogo}
           label="Choose a place on map"
           onPlaceSelect={onPlaceSelect}
+          initialLat={initialLat}
+          initialLon={initialLon}
         />
       </div>
 

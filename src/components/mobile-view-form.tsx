@@ -17,6 +17,8 @@ const MobileViewForm = function ({
   onBlur,
   onPlaceSelect,
   onSubmit,
+  initialLat,
+  initialLon,
 }: DataProps) {
   // Get the minimum and maximum dates for the date input
   const { minDate, maxDate } = minMaxDate();
@@ -44,7 +46,12 @@ const MobileViewForm = function ({
         </div>
 
         {/* Link to accept place using map */}
-        <MapPickerLink logoClassName={mobileStyles.mapLogo} onPlaceSelect={onPlaceSelect} />
+        <MapPickerLink
+          logoClassName={mobileStyles.mapLogo}
+          onPlaceSelect={onPlaceSelect}
+          initialLat={initialLat}
+          initialLon={initialLon}
+        />
       </div>
 
       {/* Input to accept date */}
