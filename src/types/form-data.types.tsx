@@ -9,6 +9,8 @@ interface DataProps {
   onBlur: (field: 'place' | 'date', e: React.FocusEvent<HTMLInputElement>) => void;
   onPlaceSelect: (place: PlaceSuggestion) => void;
   onSubmit: React.SubmitEventHandler<HTMLFormElement>;
+  initialLat?: number;
+  initialLon?: number;
 }
 
 export type { DataProps };
