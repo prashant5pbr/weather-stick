@@ -11,8 +11,8 @@
 }
 
 .popup {
-  max-width: 300px;
-  padding: 20px 22px;
+  width: min(92vw, 1000px);
+  padding: 18px 18px 16px;
   border-radius: 12px;
   background: #1b2432;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -25,6 +25,37 @@
   font-size: 0.95rem;
 }
 
+/* The Leaflet map needs an explicit height or it collapses to zero and shows nothing */
+.map {
+  height: 72vh;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+/* Row under the map: resolved place on the left, confirm button on the right */
+.confirmBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+}
+
+.placeName {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hint {
+  color: rgba(234, 241, 251, 0.6);
+}
+
 .button {
   padding: 8px 20px;
   border: none;
@@ -33,4 +64,10 @@
   color: #fff;
   font-size: 0.9rem;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
