@@ -53,14 +53,16 @@ const useFormData = function () {
 
   // Get the method to update the states in zustand store
   const setInput = useFormStore((state) => state.setInput);
+  const setCoords = useFormStore((state) => state.setCoords);
 
   // Event handler for change in input
   const handleChange = function (field: 'place' | 'date', e: React.ChangeEvent<HTMLInputElement>) {
     const newValue = e.target.value;
 
-    // Typing in the place field invalidates any previously picked suggestion
+    // Typing in the place field invalidates any previously picked suggestion (and its pin)
     if (field === 'place') {
       setSelectedPlace(null);
+      setCoords(null, null);
     }
 
     setInputDraft((prevData) => ({
@@ -85,6 +87,7 @@ const useFormData = function () {
     }));
 
     setInput('place', label);
+    setCoords(place.latitude, place.longitude);
   };
 
   // Handle the event when input loses focus
