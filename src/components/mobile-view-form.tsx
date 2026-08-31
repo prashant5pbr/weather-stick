@@ -44,7 +44,7 @@ const MobileViewForm = function ({
         </div>
 
         {/* Link to accept place using map */}
-        <MapPickerLink logoClassName={mobileStyles.mapLogo} />
+        <MapPickerLink logoClassName={mobileStyles.mapLogo} onPlaceSelect={onPlaceSelect} />
       </div>
 
       {/* Input to accept date */}

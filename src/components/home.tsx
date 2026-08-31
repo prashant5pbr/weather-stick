@@ -155,6 +155,7 @@ const Home = function () {
               className={formStyles.mapLink}
               logoClassName={formStyles.mapLogo}
               label="Choose a place on map"
+              onPlaceSelect={handlePlaceSelect}
             />
           </div>
 

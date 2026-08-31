@@ -50,6 +50,7 @@ const TopbarForm = function ({
           className={weatherStyles.mapLink}
           logoClassName={formStyles.mapLogo}
           label="Choose a place on map"
+          onPlaceSelect={onPlaceSelect}
         />
       </div>
 
