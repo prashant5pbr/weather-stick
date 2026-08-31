@@ -18,10 +18,19 @@ interface MapPickerLinkProps {
   className?: string;
   label?: string;
   onPlaceSelect: (place: PlaceSuggestion) => void;
+  initialLat?: number;
+  initialLon?: number;
 }
 
 // Component to allow selecting a place by clicking on a map
-const MapPickerLink = function ({ logoClassName, className, label, onPlaceSelect }: MapPickerLinkProps) {
+const MapPickerLink = function ({
+  logoClassName,
+  className,
+  label,
+  onPlaceSelect,
+  initialLat,
+  initialLon,
+}: MapPickerLinkProps) {
   // State to decide if the popup opens or not
   const [open, setOpen] = useState(false);
 
@@ -60,6 +69,9 @@ const MapPickerLink = function ({ logoClassName, className, label, onPlaceSelect
     let cancelled = false;
     const controller = new AbortController();
 
+    // Whether the weather page handed us a place to open on
+    const hasInitial = Number.isFinite(initialLat) && Number.isFinite(initialLon);
+
     // Import Leaflet only in the browser (its module code touches window, which does not exist during Next's server render)
     (async () => {
       const L = (await import('leaflet')).default;
@@ -67,8 +79,11 @@ const MapPickerLink = function ({ logoClassName, className, label, onPlaceSelect
       // Popup may have closed while Leaflet was loading
       if (cancelled || !mapRef.current) return;
 
-      // Create the map centred on the whole world at a low zoom
-      map = L.map(mapRef.current, { center: [20, 0], zoom: 2 });
+      // Open on the current place if we have one, otherwise the whole world
+      map = L.map(mapRef.current, {
+        center: hasInitial ? [initialLat!, initialLon!] : [20, 0],
+        zoom: hasInitial ? 9 : 2,
+      });
 
       // Draw the map
       L.tileLayer(osmTileURL, {
@@ -82,13 +97,13 @@ const MapPickerLink = function ({ logoClassName, className, label, onPlaceSelect
       // A single dot marking the last click (no image asset, so no bundler icon bug)
       let marker: LTypes.CircleMarker | null = null;
 
-      // Fetch the coordinates of the place when clicked on map
-      map.on('click', async (e: LTypes.LeafletMouseEvent) => {
-        const { lat, lng } = e.latlng;
+      // Mark a point, then reverse-geocode it into a place label (shared by clicks + the initial point)
+      const selectPoint = async function (lat: number, lng: number) {
+        const latlng: LTypes.LatLngTuple = [lat, lng];
 
-        // Drop the dot on first click, move it on later clicks
-        if (marker) marker.setLatLng(e.latlng);
-        else marker = L.circleMarker(e.latlng, { radius: 7, color: '#5b7cfa', fillOpacity: 0.9 }).addTo(map!);
+        // Drop the dot on first use, move it on later ones
+        if (marker) marker.setLatLng(latlng);
+        else marker = L.circleMarker(latlng, { radius: 7, color: '#5b7cfa', fillOpacity: 0.9 }).addTo(map!);
 
         setPicked(null);
         setLoading(true);
@@ -102,7 +117,13 @@ const MapPickerLink = function ({ logoClassName, className, label, onPlaceSelect
         } finally {
           setLoading(false);
         }
-      });
+      };
+
+      // Resolve the place when the user clicks the map
+      map.on('click', (e: LTypes.LeafletMouseEvent) => selectPoint(e.latlng.lat, e.latlng.lng));
+
+      // Pre-mark the place the weather page is currently showing
+      if (hasInitial) selectPoint(initialLat!, initialLon!);
     })();
 
     // Runs when the popup closes: cancel the pending frame + fetch, then destroy the map
@@ -112,7 +133,7 @@ const MapPickerLink = function ({ logoClassName, className, label, onPlaceSelect
       controller.abort();
       map?.remove();
     };
-  }, [open]);
+  }, [open, initialLat, initialLon]);
 
   // Commit the picked place to the form and close
   const handleConfirm = function () {
