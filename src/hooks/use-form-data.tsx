@@ -138,6 +138,8 @@ const useFormData = function () {
     handleBlur,
     handlePlaceSelect,
     handleSubmit,
+    initialLat: seededPlace?.latitude,
+    initialLon: seededPlace?.longitude,
   };
 };
 
