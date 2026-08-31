@@ -6,4 +6,7 @@ const forecastURL = 'https://api.open-meteo.com/v1/forecast';
 // Nominatim (OpenStreetMap) reverse geocoder: coordinates -> place name
 const nominatimReverseURL = 'https://nominatim.openstreetmap.org/reverse';
 
-export { geocodingURL, archiveURL, forecastURL, nominatimReverseURL };
+// OpenStreetMap tile server: serves the PNG map imagery Leaflet displays
+const osmTileURL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+export { geocodingURL, archiveURL, forecastURL, nominatimReverseURL, osmTileURL };
