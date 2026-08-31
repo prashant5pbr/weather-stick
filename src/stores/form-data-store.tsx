@@ -12,9 +12,15 @@ interface FormDetails {
   savedPlace: string;
   savedDate: string;
 
+  // Coordinates of the currently selected place (null when free-typed); kept so the
+  // map picker can reopen on it even after navigating between the home and weather pages
+  lat: number | null;
+  lon: number | null;
+
   // Define the action method to set the place and date in the input fields
   setInput: (field: 'place' | 'date', value: string) => void;
   setSavedInput: (field: 'savedPlace' | 'savedDate', value: string) => void;
+  setCoords: (lat: number | null, lon: number | null) => void;
 }
 
 // Custom hook (zustand store) to manage and store the form details
@@ -30,8 +36,12 @@ const useFormStore = create<FormDetails>()(
       savedPlace: '',
       savedDate: '',
 
+      lat: null,
+      lon: null,
+
       setInput: (field, value) => set((state) => ({ ...state, [field]: value })),
       setSavedInput: (field, value) => set((state) => ({ ...state, [field]: value })),
+      setCoords: (lat, lon) => set((state) => ({ ...state, lat, lon })),
     }),
 
     // name gives unique identifier to the data from the given store
