@@ -35,11 +35,27 @@ const Home = function () {
   const savedPlace = useFormStore((state) => state.savedPlace);
   const savedDate = useFormStore((state) => state.savedDate);
   const setSavedInput = useFormStore((state) => state.setSavedInput);
+  const lat = useFormStore((state) => state.lat);
+  const lon = useFormStore((state) => state.lon);
+  const setCoords = useFormStore((state) => state.setCoords);
 
   // Use previous saved values on reload if the current search values are empty
   useEffect(() => {
     if (place.trim() === '') setInput('place', savedPlace);
     if (date === '') setInput('date', savedDate);
+
+    // Restore the map pin from the stored coordinates (e.g. after coming back from the weather page)
+    if (lat !== null && lon !== null) {
+      setSelectedPlace({
+        id: 0,
+        name: place || savedPlace,
+        region: '',
+        country: '',
+        latitude: lat,
+        longitude: lon,
+        timezone: 'auto',
+      });
+    }
   }, []);
 
   // Get the minimum and maximum dates
@@ -54,6 +70,7 @@ const Home = function () {
     setIsEmpty(false);
     setInput('place', label);
     setSavedInput('savedPlace', label);
+    setCoords(chosen.latitude, chosen.longitude);
   };
 
   // Event handler to handle form submission
@@ -142,6 +159,7 @@ const Home = function () {
                   setInput('place', newPlace);
                   setSavedInput('savedPlace', newPlace);
                   setSelectedPlace(null);
+                  setCoords(null, null);
                 }}
                 onSelect={handlePlaceSelect}
                 placeholder="e.g. Tokyo, London..."
@@ -156,6 +174,8 @@ const Home = function () {
               logoClassName={formStyles.mapLogo}
               label="Choose a place on map"
               onPlaceSelect={handlePlaceSelect}
+              initialLat={selectedPlace?.latitude}
+              initialLon={selectedPlace?.longitude}
             />
           </div>
 
