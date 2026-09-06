@@ -6,7 +6,7 @@ import type { HourlyResponse } from '@/types/hourly-response.types';
 import type { Row } from '@/types/row-data.types';
 
 // Hourly variables requested from the weather endpoints
-const hourlyVars = 'temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation';
+const hourlyVars = 'temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,weather_code';
 
 // Function to fetch the weather data for the given place and shape it into format to show in the table
 const getWeather = async function (place: PlaceData, anchorDateStr: string, signal?: AbortSignal): Promise<Row[]> {
