@@ -5,6 +5,7 @@ interface HourlyResponse {
   relative_humidity_2m: (number | null)[];
   wind_speed_10m: (number | null)[];
   precipitation: (number | null)[];
+  weather_code: (number | null)[];
 }
 
 export type { HourlyResponse };
