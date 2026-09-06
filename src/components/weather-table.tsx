@@ -2,6 +2,7 @@
 
 import { useWeather } from '@/hooks/use-weather';
 import { hours } from '@/util/time-slots';
+import { getCondition } from '@/util/weather-condition';
 import type { Cell } from '@/types/row-data.types';
 
 import styles from '@/css/weather-table.module.css';
@@ -58,6 +59,7 @@ const WeatherTable = function () {
                   {hours.map((hour) => (
                     <th key={hour} className={styles.timeHead} scope="col">
                       <span className={styles.timeLabel}>{hour}:00</span>
+                      <span className={styles.metricLabel}>Sky</span>
                       {metrics.map((metric) => (
                         <span key={metric.key} className={styles.metricLabel}>
                           {metric.label}
@@ -73,15 +75,29 @@ const WeatherTable = function () {
                     <th className={styles.dateCell} scope="row">
                       {row.date}
                     </th>
-                    {row.cells.map((cell) => (
-                      <td key={cell.hour} className={styles.dataCell}>
-                        {metrics.map((metric) => (
-                          <span key={metric.key} className={styles.value}>
-                            {formatValue(cell[metric.key], metric.unit)}
+                    {row.cells.map((cell) => {
+                      // Resolve the WMO code into an icon + label for this hour
+                      const condition = getCondition(cell.code);
+
+                      return (
+                        <td key={cell.hour} className={styles.dataCell}>
+                          <span className={styles.condition} title={condition?.label}>
+                            {condition ? (
+                              <>
+                                <span className={styles.conditionIcon}>{condition.icon}</span> {condition.label}
+                              </>
+                            ) : (
+                              '—'
+                            )}
                           </span>
-                        ))}
-                      </td>
-                    ))}
+                          {metrics.map((metric) => (
+                            <span key={metric.key} className={styles.value}>
+                              {formatValue(cell[metric.key], metric.unit)}
+                            </span>
+                          ))}
+                        </td>
+                      );
+                    })}
                   </tr>
                 ))}
               </tbody>

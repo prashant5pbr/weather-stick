@@ -110,6 +110,20 @@
   color: #12314d;
 }
 
+/* Sky condition line (icon + label) at the top of each data cell */
+.condition {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  font-weight: 500;
+  color: #0c3b6e;
+}
+
+.conditionIcon {
+  font-size: 0.9rem;
+}
+
 /* "(Today)" marker beneath the matching row's date */
 .todayTag {
   display: block;
