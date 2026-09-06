@@ -83,6 +83,11 @@ const MapPickerLink = function ({
       map = L.map(mapRef.current, {
         center: hasInitial ? [initialLat!, initialLon!] : [20, 0],
         zoom: hasInitial ? 9 : 2,
+        // Modal picker: animations add nothing here and their internal
+        // callbacks can fire after the map is destroyed on close (classList crash)
+        fadeAnimation: false,
+        zoomAnimation: false,
+        markerZoomAnimation: false,
       });
 
       // Draw the map
@@ -131,7 +136,14 @@ const MapPickerLink = function ({
       cancelled = true;
       cancelAnimationFrame(frame);
       controller.abort();
-      map?.remove();
+      // Teardown only: drop listeners, then destroy. Swallow any stray
+      // Leaflet callback that fires against the already-detached container.
+      try {
+        map?.off();
+        map?.remove();
+      } catch {
+        // map already gone / mid-animation teardown — nothing left to clean
+      }
     };
   }, [open, initialLat, initialLon]);
 
