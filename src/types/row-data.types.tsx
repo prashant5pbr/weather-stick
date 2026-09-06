@@ -5,6 +5,7 @@ interface Cell {
   humidity: number | null;
   wind: number | null;
   precip: number | null;
+  code: number | null;
 }
 
 // Shape of the data for the rows of the weather table

@@ -20,6 +20,7 @@ const buildRows = function (hourlyData: HourlyResponse, dateArray: string[]): Ro
         humidity: index === undefined ? null : hourlyData.relative_humidity_2m[index],
         wind: index === undefined ? null : hourlyData.wind_speed_10m[index],
         precip: index === undefined ? null : hourlyData.precipitation[index],
+        code: index === undefined ? null : hourlyData.weather_code[index],
       };
     });
 
